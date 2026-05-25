@@ -7,7 +7,7 @@ import { useLiveReading } from '../hooks/useLiveReading';
 import { classifyForMedical, detectColorName } from '../utils/colorClassifier';
 
 export const Dashboard: React.FC = () => {
-  const { latest, connected } = useLiveReading();
+  const { latest, streamConnected: connected } = useLiveReading();
 
   const [scanning, setScanning] = React.useState(true);
 
