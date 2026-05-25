@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card } from '../components/ui/Card';
-import { Badge } from '../components/ui/Badge';
 import { SeverityBadge } from '../components/ui/SeverityBadge';
 
 // Reference table from spec
