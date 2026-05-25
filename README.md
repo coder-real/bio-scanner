@@ -1,73 +1,66 @@
-# React + TypeScript + Vite
+# JOSTUM BioScan Pro
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A minimalist, professional medical IoT dashboard for real-time spectroscopic analysis. Built for JOSTUM, this system facilitates live color-based diagnostics using an ESP-01S and TCS3200 sensor.
 
-Currently, two official plugins are available:
+![JOSTUM Branding](public/JOSTUM%20logo.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Key Features
 
-## React Compiler
+- **Real-Time Data Pipeline**: Instant data push from hardware to dashboard via Server-Sent Events (SSE).
+- **Medical Interpretation Engine**: Automatically maps RGB sensor data to 5 specific medical domains:
+  - 🩸 **Blood Analysis**: Oxygen levels.
+  - 🧪 **Urine Test**: Infection and blood detection.
+  - 🧴 **Skin Disease**: Lesion and anemia detection.
+  - 🩹 **Wound Monitoring**: Tissue healing and necrosis.
+  - 📈 **PH Diagnostics**: Alkaline/Neutral/Acidic conditions.
+- **Robust Device Tracking**: Features a 10s heartbeat mechanism to ensure accurate "Online/Offline" status.
+- **IBM Carbon Inspired Design**: Clean, high-density, professional UI for clinical environments.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠 Tech Stack
 
-## Expanding the ESLint configuration
+- **Frontend**: React 19, Vite, TypeScript, Tailwind CSS v4.
+- **Backend**: Node.js, Express.js (SSE for live updates).
+- **Hardware**: ESP-01S (WiFi), TCS3200 Color Sensor, Arduino Uno.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📦 Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 1. Requirements
+- Node.js v18+
+- Arduino IDE (for hardware deployment)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 2. Backend Setup
+```bash
+# Navigate to the server folder
+cd server
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Install dependencies
+npm install
+
+# Start the server
+node server.js
 ```
+The server will run on `http://localhost:3000`.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 3. Frontend Setup
+```bash
+# In the root directory
+npm install
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Start the development server
+npm run dev
 ```
+Access the dashboard at `http://localhost:5173`.
+
+### 4. Hardware Setup
+- Open `esp_heartbeat_sketch.ino` in Arduino IDE.
+- Update `ssid`, `password`, and `SERVER_IP` with your network details.
+- Flash to your ESP-01S.
+
+## 📐 Architecture
+
+1. **Hardware**: Reads color data -> Sends JSON POST to Node.js server.
+2. **Server**: Receives data -> Updates device status -> Pushes to clients via SSE.
+3. **Frontend**: Receives SSE stream -> Classifies color for medical domain -> Updates UI.
+
+## 🛡️ License
+Proprietary for JOSTUM Medical Systems.
