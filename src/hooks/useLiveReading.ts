@@ -20,7 +20,7 @@ export interface DeviceStatus {
   status:   'online' | 'offline';
 }
 
-const SERVER = import.meta.env.VITE_SERVER_URL || 'http://localhost:3000';
+const SERVER = import.meta.env.VITE_API_URL || 'https://bio-scanner.onrender.com';
 
 export function useLiveReading() {
   const [latest,          setLatest]          = useState<LiveReading | null>(null);

@@ -2,7 +2,15 @@ const express = require('express');
 const cors    = require('cors');
 const app     = express();
 
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:5173',                        // local dev
+    'https://biocolour-frontend.vercel.app',        // placeholder production
+    /\.vercel\.app$/                                // any Vercel preview URL
+  ],
+  methods: ['GET', 'POST', 'DELETE'],
+  credentials: true
+}));
 app.use(express.json());
 app.use(express.static('public'));
 
