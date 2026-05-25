@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BioColour Dx Dashboard</title>
+  <style>
+    body { font-family: Arial; padding: 20px; background: #f0f0f0; }
+    h1 { color: #333; }
+    #latest { background: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+    #readings { background: white; padding: 15px; border-radius: 8px; }
+    .reading { padding: 8px; border-bottom: 1px solid #eee; }
+    .swatch { display: inline-block; width: 30px; height: 30px; border-radius: 4px; vertical-align: middle; margin-right: 8px; }
+    button { padding: 8px 16px; background: #e74c3c; color: white; border: none; border-radius: 4px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>BioColour Dx — Live Dashboard</h1>
+  <div id="latest"><h3>Latest Reading</h3><p id="latestText">Waiting for data...</p></div>
+  <div id="readings"><h3>All Readings <button onclick="clearReadings()">Clear</button></h3><div id="readingsList">No readings yet.</div></div>
+
+  <script>
+    function fetchLatest() {
+      fetch('/api/latest').then(r => r.json()).then(data => {
+        if (data.message) return;
+        document.getElementById('latestText').innerHTML = `<span class="swatch" style="background:rgb(${data.r},${data.g},${data.b})"></span><strong>${data.result}</strong> — R:${data.r} G:${data.g} B:${data.b}`;
+      });
+    }
+    function fetchAll() {
+      fetch('/api/readings').then(r => r.json()).then(data => {
+        if (!data.length) return;
+        document.getElementById('readingsList').innerHTML = [...data].reverse().map(d => `<div class="reading"><span class="swatch" style="background:rgb(${d.r},${d.g},${d.b})"></span><strong>${d.result}</strong> — R:${d.r} G:${d.g} B:${d.b}</div>`).join('');
+      });
+    }
+    function clearReadings() { fetch('/api/readings', { method: 'DELETE' }).then(() => document.getElementById('readingsList').innerHTML = 'Cleared.'); }
+    setInterval(() => { fetchLatest(); fetchAll(); }, 3000);
+    fetchLatest(); fetchAll();
+  </script>
+</body>
+</html>

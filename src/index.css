@@ -1,0 +1,113 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* IBM Carbon Color Tokens */
+  --color-background:       #f4f4f4;
+  --color-layer-01:         #ffffff;
+  --color-layer-02:         #f4f4f4;
+  --color-layer-03:         #e8e8e8;
+
+  --color-border-subtle:    #e0e0e0;
+  --color-border-strong:    #8d8d8d;
+
+  --color-text-primary:     #161616;
+  --color-text-secondary:   #525252;
+  --color-text-placeholder: #a8a8a8;
+  --color-text-on-color:    #ffffff;
+  --color-text-helper:      #6f6f6f;
+
+  --color-interactive:      #0f62fe;
+  --color-interactive-hover:#0353e9;
+  --color-interactive-active:#002d9c;
+
+  --color-support-success:  #198038;
+  --color-support-warning:  #b28600;
+  --color-support-error:    #da1e28;
+  --color-support-info:     #0043ce;
+
+  --color-tag-normal-bg:    #e0f2fe;
+  --color-tag-normal-text:  #075985;
+  --color-tag-warning-bg:   #fef9c3;
+  --color-tag-warning-text: #854d0e;
+  --color-tag-error-bg:     #fee2e2;
+  --color-tag-error-text:   #991b1b;
+
+  --color-sidebar-bg:       #161616;
+  --color-sidebar-hover:    #262626;
+  --color-sidebar-active:   #393939;
+  --color-sidebar-text:     #f4f4f4;
+  --color-sidebar-muted:    #8d8d8d;
+
+  --color-focus:            #0f62fe;
+
+  /* Spacing — 8px base */
+  --spacing-01: 2px;
+  --spacing-02: 4px;
+  --spacing-03: 8px;
+  --spacing-04: 12px;
+  --spacing-05: 16px;
+  --spacing-06: 24px;
+  --spacing-07: 32px;
+  --spacing-08: 48px;
+
+  /* Typography */
+  --font-body:  'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:  'IBM Plex Mono', 'Courier New', monospace;
+
+  /* No decorative shadows — just borders */
+  --shadow-raised: 0 1px 3px rgba(0,0,0,0.12);
+}
+
+html, body, #root {
+  height: 100%;
+  font-family: var(--font-body);
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* IBM Carbon scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--color-layer-02); }
+::-webkit-scrollbar-thumb { background: #8d8d8d; }
+::-webkit-scrollbar-thumb:hover { background: #525252; }
+
+/* Scanning pulse */
+@keyframes scan-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.scan-pulse { animation: scan-pulse 1.4s ease-in-out infinite; }
+
+/* Page transition */
+@keyframes appear {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.appear { animation: appear 0.2s ease; }
+
+/* Spinning loader */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Color swatch inner glow when scanning */
+@keyframes swatch-scan {
+  0%, 100% { box-shadow: inset 0 0 0 2px rgba(15,98,254,0.4); }
+  50%       { box-shadow: inset 0 0 0 2px rgba(15,98,254,0.9), 0 0 20px rgba(15,98,254,0.2); }
+}
+.swatch-active { animation: swatch-scan 1.4s ease-in-out infinite; }
+
+/* Row highlight */
+tr:hover td { background: var(--color-layer-02) !important; }
